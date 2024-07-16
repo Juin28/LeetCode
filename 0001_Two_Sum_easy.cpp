@@ -15,7 +15,7 @@ public:
         while (l < r) 
         {
             int sum = get_idx[l].first + get_idx[r].first;
-            cout << "l = " << l << "\tr = " << r << "\tsum = " << sum << endl;
+            
             if (sum == target)
             {
                 int smaller = get_idx[l].second;
