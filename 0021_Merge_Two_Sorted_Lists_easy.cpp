@@ -8,55 +8,53 @@
  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
+
 class Solution {
 public:
     ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
+        if (!list1 && !list2)
+            return nullptr;
+        else if (!list1)
+            return list2;
+        else if (!list2)
+            return list1;
+
         ListNode* node1 = list1;
         ListNode* node2 = list2;
-        ListNode* new_head = nullptr;
-        ListNode* temp = nullptr;
+        ListNode* newHead = nullptr;
 
-        if ( (node1 == nullptr && node2 != nullptr) || (node1 != nullptr && node2 == nullptr) )
+        if (node1->val > node2->val)
         {
-            return (node1 == nullptr) ? node2 : node1 ;
+            newHead = node2;
+            node2 = node2->next;
+        }
+        else
+        {
+            newHead = node1;
+            node1 = node1->next;
         }
 
-        else if (list1 && list2)
+        ListNode* newNode = newHead;
+
+        while (node1 && node2)
         {
-            if (node1->val <= node2->val)
+            if (node1->val > node2->val)
             {
-                new_head = node1;
-                node1 = node1->next;
+                newNode->next = node2;
+                node2 = node2->next;
             }
             else
             {
-                new_head = node2;
-                node2 = node2->next;
+                newNode->next = node1;
+                node1 = node1->next;
             }
-
-            temp = new_head;
-            
-            while(node1 && node2)
-            {
-                if (node1->val <= node2->val)
-                {
-                    temp->next = node1;
-                    node1 = node1->next;
-                }
-                else
-                {
-                    temp->next = node2;
-                    node2 = node2->next;
-                }
-                temp = temp->next;
-            }
+            newNode = newNode->next;
         }
 
         if (node1 || node2)
-        {
-            temp->next = (node1) ? node1 : node2;
-        }
+            newNode->next = node1 ? node1 : node2;
 
-        return new_head;
+        return newHead;
+
     }
 };
