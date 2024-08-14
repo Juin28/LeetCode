@@ -11,23 +11,14 @@
  */
 class Solution {
 public:
-    int depthOfBinaryTree(TreeNode* root) {
+    int minDepth(TreeNode* root) {
         if (!root)
             return 0;
-        
-        int left = depthOfBinaryTree(root->left);
-        int right = depthOfBinaryTree(root->right);
 
-        if (left == -1 || right == -1 || abs(left - right) > 1)
-            return -1;
-        
-        return max(left, right) + 1;
-    }
-
-    bool isBalanced(TreeNode* root) {
-        if (depthOfBinaryTree(root) == -1)
-            return false;
-
-        return true;
+        int left = minDepth(root->left);
+        int right = minDepth(root->right);
+        if (left == 0 || right == 0)
+            return left ? left + 1 : right + 1;
+        return min(left, right) + 1;
     }
 };
