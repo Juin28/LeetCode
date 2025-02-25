@@ -11,4 +11,4 @@ public:
     int findTargetSumWays(vector<int>& nums, int target) {
         return recursion(nums, target, 0, 0);
     }
-};class
+}
